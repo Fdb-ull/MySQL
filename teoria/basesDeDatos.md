@@ -34,3 +34,19 @@ Existen diferentes tipos de relaciones, 1:1, 1:N o N:N por ejemplo, una relacion
 2.	No Nulo: Los campos que componen la clave primaria no pueden contener valores nulos. Cada registro debe tener un valor en la clave primaria.
 3.	Inmutabilidad: Idealmente, el valor de la clave primaria no debe cambiar. Esto se debe a que muchas tablas pueden hacer referencia a esta clave (a través de claves foráneas), y cambiar su valor podría causar inconsistencias y problemas de integridad referencial.
 4.	Índice: En la mayoría de los sistemas de bases de datos, se crea automáticamente un índice en la clave primaria, lo que mejora la velocidad de las operaciones de búsqueda y consulta.
+
+### Identificadores
+2. NN (Not Null)
+- Definición: Una restricción que asegura que un campo no puede tener un valor nulo.
+3. UQ (Unique)
+- Definición: Una restricción que asegura que todos los valores en un campo o combinación de campos sean únicos en la tabla.
+4. BINARY
+- Definición: Tipo de datos que almacena datos en formato binario.
+5. UN (Unsigned)
+- Definición: Atributo de tipo de dato numérico que no permite valores negativos.
+6. ZF (Zero Fill)
+- Definición: Atributo de tipo de dato numérico que rellena con ceros a la izquierda hasta alcanzar la longitud especificada.
+7. AI (Auto Increment)
+- Definición: Atributo que automáticamente incrementa el valor del campo cada vez que se inserta una nueva fila.
+8. G (Generated)
+- Definición: Un campo que tiene su valor generado automáticamente, generalmente basado en una expresión o cálculo.
