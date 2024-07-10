@@ -46,3 +46,53 @@ Existen diferentes tipos de relaciones, 1:1, 1:N o N:N por ejemplo, una relacion
 
 ## Consulta de datos
 
+### Sentencias
+
+#### Select
+La sentencia SELECT es utilizada en SQL para recuperar datos de una base de datos. La sintaxis básica incluye varias cláusulas opcionales que permiten filtrar, ordenar y agrupar los datos seleccionados.
+```SQL
+SELECT columnas FROM tabla
+[WHERE condición]
+[GROUP BY columna]
+[HAVING condición]
+[ORDER BY columna [ASC | DESC]]
+[LIMIT número_filas]
+```
+```SQL
+SELECT [DISTINCT] columnas:
+```
+- SELECT: Palabra clave utilizada para iniciar una consulta.
+- DISTINCT: Opcional. Se utiliza para eliminar duplicados de los resultados.
+- columnas: Especifica una o más columnas que se desean recuperar. Puede incluir funciones agregadas, como COUNT, SUM, AVG, etc.
+```SQL
+FROM tabla:
+```
+- FROM: Palabra clave utilizada para especificar la tabla de la cual se van a recuperar los datos.
+- tabla: Nombre de la tabla de la cual se extraen los datos.
+```SQL
+WHERE condición:
+```
+- WHERE: Opcional. Se utiliza para filtrar registros que cumplen con una condición específica.
+- condición: Expresión que debe ser verdadera para las filas seleccionadas.
+```SQL
+GROUP BY columnas:
+```
+- GROUP BY: Opcional. Se utiliza para agrupar filas que tienen los mismos valores en columnas específicas.
+- columnas: Columnas por las que se agruparán los resultados.
+```SQL
+HAVING condición:
+```
+- HAVING: Opcional. Similar a WHERE, pero se aplica a los grupos de resultados definidos por GROUP BY.
+- condición: Expresión que debe ser verdadera para los grupos seleccionados.
+```SQL
+ORDER BY columnas [ASC | DESC]:
+```
+- ORDER BY: Opcional. Se utiliza para ordenar los resultados.
+- columnas: Columnas por las que se ordenarán los resultados.
+- ASC | DESC: Opcional. Especifica el orden ascendente (ASC) o descendente (DESC).
+```SQL
+LIMIT número_filas OFFSET offset:
+```
+- LIMIT: Opcional. Se utiliza para limitar el número de filas devueltas.
+- número_filas: Número máximo de filas a devolver.
+- OFFSET: Opcional. Número de filas a omitir antes de comenzar a devolver filas.
