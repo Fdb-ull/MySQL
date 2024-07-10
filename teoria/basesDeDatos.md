@@ -36,17 +36,10 @@ Existen diferentes tipos de relaciones, 1:1, 1:N o N:N por ejemplo, una relacion
 4.	Índice: En la mayoría de los sistemas de bases de datos, se crea automáticamente un índice en la clave primaria, lo que mejora la velocidad de las operaciones de búsqueda y consulta.
 
 ### Identificadores
-2. NN (Not Null)
-- Definición: Una restricción que asegura que un campo no puede tener un valor nulo.
-3. UQ (Unique)
-- Definición: Una restricción que asegura que todos los valores en un campo o combinación de campos sean únicos en la tabla.
-4. BINARY
-- Definición: Tipo de datos que almacena datos en formato binario.
-5. UN (Unsigned)
-- Definición: Atributo de tipo de dato numérico que no permite valores negativos.
-6. ZF (Zero Fill)
-- Definición: Atributo de tipo de dato numérico que rellena con ceros a la izquierda hasta alcanzar la longitud especificada.
-7. AI (Auto Increment)
-- Definición: Atributo que automáticamente incrementa el valor del campo cada vez que se inserta una nueva fila.
-8. G (Generated)
-- Definición: Un campo que tiene su valor generado automáticamente, generalmente basado en una expresión o cálculo.
+2. NN (Not Null): Una restricción que asegura que un campo no puede tener un valor nulo.
+3. UQ (Unique): Una restricción que asegura que todos los valores en un campo o combinación de campos sean únicos en la tabla.
+4. BINARY: Tipo de datos que almacena datos en formato binario.
+5. UN (Unsigned): Atributo de tipo de dato numérico que no permite valores negativos.
+6. ZF (Zero Fill): Atributo de tipo de dato numérico que rellena con ceros a la izquierda hasta alcanzar la longitud especificada.
+7. AI (Auto Increment): Atributo que automáticamente incrementa el valor del campo cada vez que se inserta una nueva fila.
+8. G (Generated): Un campo que tiene su valor generado automáticamente, generalmente basado en una expresión o cálculo.
