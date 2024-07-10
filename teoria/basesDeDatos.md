@@ -43,3 +43,6 @@ Existen diferentes tipos de relaciones, 1:1, 1:N o N:N por ejemplo, una relacion
 6. ZF (Zero Fill): Atributo de tipo de dato numérico que rellena con ceros a la izquierda hasta alcanzar la longitud especificada.
 7. AI (Auto Increment): Atributo que automáticamente incrementa el valor del campo cada vez que se inserta una nueva fila.
 8. G (Generated): Un campo que tiene su valor generado automáticamente, generalmente basado en una expresión o cálculo.
+
+## Consulta de datos
+
