@@ -96,3 +96,20 @@ LIMIT número_filas OFFSET offset:
 - LIMIT: Opcional. Se utiliza para limitar el número de filas devueltas.
 - número_filas: Número máximo de filas a devolver.
 - OFFSET: Opcional. Número de filas a omitir antes de comenzar a devolver filas.
+```SQL
+SELECT columnas
+FROM tabla
+WHERE columna LIKE patrón;
+```
+
+- LIKE: La cláusula LIKE en SQL se utiliza para buscar un patrón específico dentro de una columna de texto. 
+Patrones Utilizados con LIKE
+
+1.	Porcentaje (%): Representa cero, uno o múltiples caracteres.
+    - 'a%': cualquier cadena que comience con ‘a’.
+    - '%a': cualquier cadena que termine con ‘a’.
+    - '%a%': cualquier cadena que contenga ‘a’.
+2. Guión Bajo (_): Representa un solo carácter.
+    - 'a_': cualquier cadena que comience con ‘a’ seguido de exactamente un carácter.
+    - 'a__': cualquier cadena que comience con ‘a’ seguido de exactamente dos caracteres.
+    - 'a_%': cualquier cadena que comience con ‘a’ seguido de al menos un carácter.
