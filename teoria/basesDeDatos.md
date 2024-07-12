@@ -136,3 +136,96 @@ Patrones Utilizados con LIKE
     - 'a_': cualquier cadena que comience con ‘a’ seguido de exactamente un carácter.
     - 'a__': cualquier cadena que comience con ‘a’ seguido de exactamente dos caracteres.
     - 'a_%': cualquier cadena que comience con ‘a’ seguido de al menos un carácter.
+
+- AND: Se utiliza para combinar múltiples condiciones en una cláusula WHERE. Ambas condiciones deben ser verdaderas para que la fila sea seleccionada.
+
+Caso de uso:
+Seleccionar empleados que trabajan en el departamento de ventas y tienen más de 5 años de experiencia.
+```SQL
+SELECT * FROM Empleados
+WHERE Departamento = 'Ventas' AND Años_Experiencia > 5;
+```
+
+- OR: Se utiliza para combinar múltiples condiciones en una cláusula WHERE. Al menos una de las condiciones debe ser verdadera para que la fila sea seleccionada.
+
+Caso de uso:
+Seleccionar empleados que trabajan en el departamento de ventas o en el departamento de marketing.
+```SQL
+SELECT * FROM Empleados
+WHERE Departamento = 'Ventas' OR Departamento = 'Marketing';
+```
+
+- NOT: Se utiliza para seleccionar filas que no cumplen con una condición especificada.
+Caso de uso: Seleccionar empleados que no trabajan en el departamento de ventas.
+```SQL
+SELECT * FROM Empleados
+WHERE NOT Departamento = 'Ventas';
+```
+- LIMIT: Se utiliza para limitar el número de filas devueltas por una consulta.
+Caso de uso: Seleccionar los primeros 10 registros de una tabla de productos.
+```SQL
+SELECT * FROM Productos
+LIMIT 10;
+```
+- NULL: Se utiliza para buscar valores nulos en una columna.
+
+Caso de uso: Seleccionar empleados que no tienen un jefe asignado.
+
+```SQL
+SELECT * FROM Empleados
+WHERE Jefe IS NULL;
+```
+- MIN: Función de agregación que devuelve el valor mínimo de una columna.
+
+Caso de uso: Encontrar el salario más bajo de todos los empleados.
+```SQL
+SELECT MIN(Salario) FROM Empleados;
+```
+- MAX: Función de agregación que devuelve el valor máximo de una columna.
+
+Caso de uso: Encontrar el salario más alto de todos los empleados.
+```SQL
+SELECT MAX(Salario) FROM Empleados;
+```
+- COUNT: Función de agregación que cuenta el número de filas que cumplen con una condición.
+
+Caso de uso: Contar el número total de empleados en la empresa.
+```SQL
+SELECT COUNT(*) FROM Empleados;
+```
+- SUM: Función de agregación que suma los valores de una columna.
+
+Caso de uso: Calcular el total de ventas de todos los productos.
+```SQL
+SELECT SUM(Ventas) FROM Productos;
+```
+- AVG: Función de agregación que calcula el valor promedio de una columna.
+
+Caso de uso: Calcular el salario promedio de los empleados.
+```SQL
+SELECT AVG(Salario) FROM Empleados;
+```
+- IN: Se utiliza para especificar múltiples valores en una condición WHERE.
+
+Caso de uso: Seleccionar empleados que trabajan en los departamentos de ventas, marketing o IT.
+```SQL
+SELECT * FROM Empleados
+WHERE Departamento IN ('Ventas', 'Marketing', 'IT');
+```
+- BETWEEN: Se utiliza para seleccionar valores dentro de un rango.
+
+Caso de uso: Seleccionar productos cuyo precio esté entre 10 y 50.
+```SQL
+SELECT * FROM Productos
+WHERE Precio BETWEEN 10 AND 50;
+```
+* Ejemplo combinado utilizando las columnas ID, name, surname, email, y age.
+Caso de uso combinado
+
+	1.	Seleccionar registros de personas cuyo surname (apellido) comience con ‘A’.
+	2.	Que tengan una age (edad) entre 25 y 35 años.
+	3.	Excluir registros con email nulo.
+	4.	Ordenar los resultados por name en orden ascendente.
+	5.	Limitar los resultados a los primeros 10 registros.
+
+---
