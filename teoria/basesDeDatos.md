@@ -274,17 +274,21 @@ LIMIT 10;                      # Limitar los resultados a los primeros 10 regist
 
 ---
 
-- Alias (AS): Un alias es un nombre temporal asignado a una columna o tabla en una consulta SQL. Se usa para simplificar la lectura y mejorar la legibilidad del código.
-
-Caso de uso: Renombrar columnas o tablas para facilitar la interpretación de los resultados.
-
 ```SQL
 SELECT name AS Nombre, surname AS Apellido
 FROM Personas;
 ```
+- Alias (AS): Un alias es un nombre temporal asignado a una columna o tabla en una consulta SQL. Se usa para simplificar la lectura y mejorar la legibilidad del código.
+
+Caso de uso: Renombrar columnas o tablas para facilitar la interpretación de los resultados.
 
 ---
 
+```SQL
+SELECT age, COUNT(*) AS NumeroPersonas
+FROM Personas
+GROUP BY age;
+```
 - GROUP BY: La cláusula GROUP BY se utiliza para agrupar filas que tienen los mismos valores en columnas especificadas. Se suele usar junto con funciones de agregación (COUNT, SUM, AVG, MAX, MIN).
 
 Caso de uso: Agrupar datos por una columna específica y aplicar funciones de agregación.
@@ -294,29 +298,12 @@ Caso de uso: Agrupar datos por una columna específica y aplicar funciones de ag
 ```SQL
 SELECT age, COUNT(*) AS NumeroPersonas
 FROM Personas
-GROUP BY age;
-```
-
----
-
-- HAVING: La cláusula HAVING se utiliza para filtrar grupos de resultados creados por la cláusula GROUP BY. A diferencia de WHERE, que filtra filas antes de agrupar, HAVING filtra después de agrupar.
-
-Caso de uso: Filtrar los grupos de resultados basados en una condición agregada.
-
----
-
-```SQL
-SELECT age, COUNT(*) AS NumeroPersonas
-FROM Personas
 GROUP BY age
 HAVING COUNT(*) > 5;
 ```
+- HAVING: La cláusula HAVING se utiliza para filtrar grupos de resultados creados por la cláusula GROUP BY. A diferencia de WHERE, que filtra filas antes de agrupar, HAVING filtra después de agrupar.
 
----
-
-- CASE: La expresión CASE se utiliza para evaluar una lista de condiciones y devolver uno de varios resultados posibles. Es similar a una declaración if-else en programación.
-
-Caso de uso: Crear columnas calculadas basadas en condiciones.
+Caso de uso: Filtrar los grupos de resultados basados en una condición agregada.
 
 ---
 
@@ -329,6 +316,10 @@ CASE
 END AS GrupoEdad
 FROM Personas;
 ```
+- CASE: La expresión CASE se utiliza para evaluar una lista de condiciones y devolver uno de varios resultados posibles. Es similar a una declaración if-else en programación.
+
+Caso de uso: Crear columnas calculadas basadas en condiciones.
+
 
 ---
 
