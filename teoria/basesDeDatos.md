@@ -164,6 +164,7 @@ SELECT * FROM Empleados
 WHERE NOT Departamento = 'Ventas';
 ```
 - NOT: Se utiliza para seleccionar filas que no cumplen con una condición especificada.
+
 Caso de uso: Seleccionar empleados que no trabajan en el departamento de ventas.
 
 ---
@@ -173,6 +174,7 @@ SELECT * FROM Productos
 LIMIT 10;
 ```
 - LIMIT: Se utiliza para limitar el número de filas devueltas por una consulta.
+
 Caso de uso: Seleccionar los primeros 10 registros de una tabla de productos.
 
 ---
@@ -260,5 +262,14 @@ Caso de uso combinado
 	3.	Excluir registros con email nulo.
 	4.	Ordenar los resultados por name en orden ascendente.
 	5.	Limitar los resultados a los primeros 10 registros.
+```SQL
+SELECT ID, name, surname, email, age
+FROM Personas
+WHERE surname LIKE 'A%'        -- Apellidos que comienzan con 'A'
+  AND age BETWEEN 25 AND 35    -- Edad entre 25 y 35
+  AND email IS NOT NULL        -- Excluir registros con email nulo
+ORDER BY name ASC              -- Ordenar por nombre en orden ascendente
+LIMIT 10;                      -- Limitar los resultados a los primeros 10 registros
+````
 
 ---
