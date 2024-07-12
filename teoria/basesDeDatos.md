@@ -265,11 +265,89 @@ Caso de uso combinado
 ```SQL
 SELECT ID, name, surname, email, age
 FROM Personas
-WHERE surname LIKE 'A%'        -- Apellidos que comienzan con 'A'
-  AND age BETWEEN 25 AND 35    -- Edad entre 25 y 35
-  AND email IS NOT NULL        -- Excluir registros con email nulo
-ORDER BY name ASC              -- Ordenar por nombre en orden ascendente
-LIMIT 10;                      -- Limitar los resultados a los primeros 10 registros
-````
+WHERE surname LIKE 'A%'        # Apellidos que comienzan con 'A'
+  AND age BETWEEN 25 AND 35    # Edad entre 25 y 35
+  AND email IS NOT NULL        # Excluir registros con email nulo
+ORDER BY name ASC              # Ordenar por nombre en orden ascendente
+LIMIT 10;                      # Limitar los resultados a los primeros 10 registros
+```
 
 ---
+
+- Alias (AS): Un alias es un nombre temporal asignado a una columna o tabla en una consulta SQL. Se usa para simplificar la lectura y mejorar la legibilidad del código.
+
+Caso de uso: Renombrar columnas o tablas para facilitar la interpretación de los resultados.
+
+```SQL
+SELECT name AS Nombre, surname AS Apellido
+FROM Personas;
+```
+
+---
+
+- GROUP BY: La cláusula GROUP BY se utiliza para agrupar filas que tienen los mismos valores en columnas especificadas. Se suele usar junto con funciones de agregación (COUNT, SUM, AVG, MAX, MIN).
+
+Caso de uso: Agrupar datos por una columna específica y aplicar funciones de agregación.
+
+---
+
+```SQL
+SELECT age, COUNT(*) AS NumeroPersonas
+FROM Personas
+GROUP BY age;
+```
+
+---
+
+- HAVING: La cláusula HAVING se utiliza para filtrar grupos de resultados creados por la cláusula GROUP BY. A diferencia de WHERE, que filtra filas antes de agrupar, HAVING filtra después de agrupar.
+
+Caso de uso: Filtrar los grupos de resultados basados en una condición agregada.
+
+---
+
+```SQL
+SELECT age, COUNT(*) AS NumeroPersonas
+FROM Personas
+GROUP BY age
+HAVING COUNT(*) > 5;
+```
+
+---
+
+- CASE: La expresión CASE se utiliza para evaluar una lista de condiciones y devolver uno de varios resultados posibles. Es similar a una declaración if-else en programación.
+
+Caso de uso: Crear columnas calculadas basadas en condiciones.
+
+---
+
+```SQL
+SELECT name, age,
+CASE
+    WHEN age < 18 THEN 'Menor de Edad'
+    WHEN age BETWEEN 18 AND 64 THEN 'Adulto'
+    ELSE 'Mayor'
+END AS GrupoEdad
+FROM Personas;
+```
+
+---
+
+- Ejemplo Combinado: Supongamos que queremos obtener un informe de las personas en la tabla Personas, mostrando cuántas hay en cada grupo de edad, clasificándolas y filtrando los grupos con menos de 3 personas.
+
+```SQL
+SELECT 
+    CASE
+        WHEN age < 18 THEN 'Menor de Edad'
+        WHEN age BETWEEN 18 AND 64 THEN 'Adulto'
+        ELSE 'Mayor'
+    END AS GrupoEdad,
+    COUNT(*) AS NumeroPersonas
+FROM Personas
+GROUP BY 
+    CASE
+        WHEN age < 18 THEN 'Menor de Edad'
+        WHEN age BETWEEN 18 AND 64 THEN 'Adulto'
+        ELSE 'Mayor'
+    END
+HAVING COUNT(*) >= 3;
+```
