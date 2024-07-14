@@ -642,5 +642,113 @@ CREATE TABLE Empleados (
 
 ---
 
-## Almacenamiento de Datos Relacionados
+## Consulta de Datos Relacionados
 
+### JOINs
+Los JOINs en SQL son operaciones que permiten combinar filas de dos o más tablas basándose en una condición relacionada entre ellas. Los tipos más comunes de JOINs son: INNER JOIN, LEFT JOIN (LEFT OUTER JOIN), RIGHT JOIN (RIGHT OUTER JOIN), FULL JOIN (FULL OUTER JOIN), CROSS JOIN y SELF JOIN. A continuación, se describe cada uno con su sintaxis y ejemplos.
+
+#### INNER JOIN
+Combina filas de dos tablas solo si hay una coincidencia en las columnas especificadas. Si no hay coincidencia, las filas no se incluyen en el resultado.
+```SQL
+SELECT columnas
+FROM tabla1
+INNER JOIN tabla2
+ON tabla1.columna = tabla2.columna;
+```
+
+---
+
+#### LEFT JOIN (LEFT OUTER JOIN)
+Combina todas las filas de la tabla izquierda y las filas coincidentes de la tabla derecha. Si no hay coincidencia, las columnas de la tabla derecha serán nulas.
+```SQL
+SELECT columnas
+FROM tabla1
+LEFT JOIN tabla2
+ON tabla1.columna = tabla2.columna;
+```
+
+---
+
+#### RIGHT JOIN (RIGHT OUTER JOIN)
+Combina todas las filas de la tabla derecha y las filas coincidentes de la tabla izquierda. Si no hay coincidencia, las columnas de la tabla izquierda serán nulas.
+```SQL
+SELECT columnas
+FROM tabla1
+RIGHT JOIN tabla2
+ON tabla1.columna = tabla2.columna;
+```
+
+---
+
+## Indices
+Los índices en una base de datos son estructuras especiales asociadas a tablas que mejoran la velocidad de recuperación de datos. Actúan como índices en libros, permitiendo un acceso rápido a las filas de la tabla según los valores de una o más columnas. Sin embargo, los índices también pueden tener un costo en términos de almacenamiento y velocidad de inserción/actualización de datos.
+A la hora de crear un indice por convenio se suele asignar el prefijo _"indx_"_ al nombre del atributo que deseamos indexar.
+
+### Indice Comun
+Almacena una copia ordenada de los valores indexados, dejando los datos en la tabla en su lugar. Se puede crear múltiples índices no clúster en una tabla.
+```SQL
+CREATE INDEX idx_nombre_empleado
+ON Empleados (NombreEmpleado);
+```
+
+---
+
+### Indice Unico
+Este índice asegura que todos los valores en la columna indexada sean únicos, pero permite un solo valor nulo.
+```SQL
+CREATE UNIQUE INDEX idx_email_unico
+ON Empleados (Email);
+```
+
+---
+
+### Indice Compuesto
+Este índice se crea en dos o más columnas de una tabla. Es útil para consultas que involucran múltiples columnas en las cláusulas WHERE y JOIN.
+```SQL
+CREATE INDEX idx_empleado_nombre_apellido
+ON Empleados (NombreEmpleado, ApellidoEmpleado);
+```
+
+---
+
+- Ventajas de Usar Índices
+
+* Rápida Recuperación de Datos: Los índices aceleran la recuperación de datos, especialmente en tablas grandes.
+* Consultas Más Eficientes: Mejoran el rendimiento de las consultas SELECT que filtran o buscan datos.
+* Integridad de Datos: Índices únicos garantizan la unicidad de los valores en las columnas indexadas.
+
+- Desventajas de Usar Índices
+
+* Espacio de Almacenamiento: Los índices ocupan espacio adicional en disco.
+* Rendimiento de Escritura: Insertar, actualizar o eliminar datos puede ser más lento debido a la necesidad de actualizar los índices.
+* Mantenimiento: Los índices deben ser gestionados y mantenidos, especialmente a medida que los datos cambian.
+
+---
+
+## Triggers
+Los triggers (disparadores) en bases de datos son procedimientos almacenados que se ejecutan automáticamente en respuesta a ciertos eventos en una tabla o vista. Estos eventos pueden ser operaciones de inserción (INSERT), actualización (UPDATE), o eliminación (DELETE). Los triggers son útiles para mantener la integridad de los datos, realizar validaciones, o sincronizar tablas relacionadas.
+- Ejemplo: Asegurarse de que el nombre del empleado esté en mayúsculas antes de insertarlo.
+```SQL
+CREATE TRIGGER before_insert_empleados
+BEFORE INSERT ON Empleados
+FOR EACH ROW
+BEGIN
+    SET NEW.NombreEmpleado = UPPER(NEW.NombreEmpleado);
+END;
+```
+- Ejemplo: Registrar la inserción de un nuevo empleado en una tabla de auditoría.
+```SQL
+CREATE TRIGGER after_insert_empleados
+AFTER INSERT ON Empleados
+FOR EACH ROW
+BEGIN
+    INSERT INTO Auditoria (Accion, Fecha, EmpleadoID)
+    VALUES ('INSERT', NOW(), NEW.EmpleadoID);
+END;
+```
+### SIGNAL SQLSTATE "Numero de la excepcion"
+Se utiliza en SQL para generar una excepción o error personalizado dentro de un bloque de código de un trigger, procedimiento almacenado, o función.
+```SQL
+SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Mensaje de error personalizado';
+```
