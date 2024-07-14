@@ -342,3 +342,305 @@ GROUP BY
     END
 HAVING COUNT(*) >= 3;
 ```
+
+## Escritura de datos
+### Comandos
+#### INSERT
+La instrucción INSERT en SQL se utiliza para agregar nuevas filas a una tabla en una base de datos. Aquí te explico en detalle su sintaxis y varios ejemplos de uso.
+```SQL
+INSERT INTO tabla (columna1, columna2, columna3, ...)
+VALUES (valor1, valor2, valor3, ...);
+```
+##### Componentes de la Sintaxis:
+
+1. INSERT INTO tabla: Especifica la tabla en la que se insertarán los datos.
+2. (columna1, columna2, columna3, ...): Lista opcional de las columnas en las que se insertarán los datos. Si no se especifica, se espera que se inserten valores para todas las columnas de la tabla en el mismo orden en que están definidas.
+3. VALUES (valor1, valor2, valor3, ...): Especifica los valores que se insertarán en las columnas correspondientes.
+
+---
+
+#### Update
+La instrucción UPDATE en SQL se utiliza para modificar los datos existentes en una tabla. Permite actualizar los valores de una o más columnas para las filas que cumplen con una condición especificada. Aquí tienes una descripción detallada de su sintaxis y ejemplos de uso.
+
+```SQL
+UPDATE tabla
+SET columna1 = valor1, columna2 = valor2, ...
+WHERE condición;
+```
+##### Componentes de la Sintaxis:
+
+1. UPDATE tabla: Especifica la tabla que se actualizará.
+2. SET columna1 = valor1, columna2 = valor2, ...: Define las columnas y los nuevos valores que se asignarán.
+3. WHERE condición: Especifica las filas que se actualizarán. Si se omite esta cláusula, todas las filas de la tabla serán actualizadas.
+
+##### Notas Adicionales
+
+* Seguridad de datos: Siempre usa una cláusula WHERE a menos que desees actualizar todas las filas de una tabla.
+* Copias de seguridad: Considera realizar una copia de seguridad de la tabla antes de realizar actualizaciones masivas.
+* Transacciones: En sistemas que soportan transacciones, puedes envolver tus actualizaciones en una transacción para asegurar que todos los cambios se realicen correctamente.
+* Restricciones: Asegúrate de que las actualizaciones no violen restricciones de integridad, como claves primarias o foráneas.
+
+---
+
+#### Delete
+La instrucción DELETE en SQL se utiliza para eliminar filas de una tabla. Es una operación potente y debe ser utilizada con precaución, especialmente cuando no se especifica una condición, ya que puede eliminar todas las filas de la tabla.
+```SQL
+DELETE FROM tabla
+WHERE condición;
+```
+##### Componentes de la Sintaxis
+
+1. DELETE FROM tabla: Especifica la tabla de la cual se eliminarán las filas.
+2. WHERE condición: Define las filas que serán eliminadas. Si se omite esta cláusula, se eliminarán todas las filas de la tabla.
+
+##### Notas Adicionales
+
+* Seguridad de datos: Siempre usa una cláusula WHERE a menos que desees eliminar todas las filas de una tabla.
+* Copias de seguridad: Considera realizar una copia de seguridad de la tabla antes de realizar eliminaciones masivas.
+* Transacciones: En sistemas que soportan transacciones, puedes envolver tus eliminaciones en una transacción para asegurar que todos los cambios se realicen correctamente.
+* Integridad referencial: Asegúrate de que las eliminaciones no violen restricciones de integridad referencial. Por ejemplo, si una tabla tiene claves foráneas que dependen de la tabla de la cual se están eliminando filas, es posible que necesites ajustar o eliminar esos registros dependientes primero.
+
+--- 
+
+## Administracion de tablas
+
+### CREATE TABLE
+La instrucción CREATE TABLE en SQL se utiliza para crear una nueva tabla en una base de datos. Esta instrucción define la estructura de la tabla, incluyendo sus columnas, tipos de datos y restricciones.
+```SQL
+CREATE TABLE nombre_tabla (
+    nombre_columna1 tipo_dato1 [restricciones],
+    nombre_columna2 tipo_dato2 [restricciones],
+    ...
+    [restricciones_tabla]
+);
+```
+#### Componentes de la Sintaxis
+
+1. CREATE TABLE nombre_tabla: Define el nombre de la nueva tabla.
+2.	nombre_columna tipo_dato: Define cada columna de la tabla con su tipo de dato.
+3. [restricciones]: Opcionalmente, define restricciones para cada columna (como PRIMARY KEY, NOT NULL, UNIQUE, FOREIGN KEY, etc.).
+4. [restricciones_tabla]: Opcionalmente, define restricciones a nivel de tabla (como claves primarias o foráneas que involucran múltiples columnas).
+
+#### Notas Adicionales
+
+* Tipos de datos: Los tipos de datos pueden variar entre diferentes sistemas de gestión de bases de datos (DBMS). Algunos ejemplos comunes incluyen INT, VARCHAR, TEXT, DATE, DECIMAL, etc.
+
+#### Restricciones
+Las restricciones aseguran la integridad de los datos.
+
+1. PRIMARY KEY: La restricción PRIMARY KEY se utiliza para identificar de manera única cada fila en una tabla. Una tabla puede tener solo una clave primaria, que puede consistir en una o varias columnas.
+
+```SQL
+CREATE TABLE Empleados (
+    ID INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50)
+);
+```
+
+---
+
+2. FOREIGN KEY: La restricción FOREIGN KEY se utiliza para enlazar dos tablas. Establece una relación entre una columna o un conjunto de columnas en la tabla hija con una columna o un conjunto de columnas en la tabla padre.
+```SQL
+CREATE TABLE Departamentos (
+    ID INT PRIMARY KEY,
+    nombre VARCHAR(50)
+);
+
+CREATE TABLE Empleados (
+    ID INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    departamento_id INT,
+    FOREIGN KEY (departamento_id) REFERENCES Departamentos(ID)
+);
+```
+
+---
+
+3. UNIQUE: La restricción UNIQUE asegura que todos los valores en una columna o un conjunto de columnas sean únicos.
+
+```SQL
+CREATE TABLE Usuarios (
+    ID INT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    email VARCHAR(100) UNIQUE
+);
+```
+
+---
+
+4. NOT NULL: La restricción NOT NULL asegura que una columna no pueda contener valores nulos.
+
+```SQL
+CREATE TABLE Productos (
+    ID INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL
+);
+```
+
+---
+
+6. DEFAULT: La restricción DEFAULT establece un valor por defecto para una columna si no se especifica ningún valor al insertar una nueva fila.
+```SQL
+CREATE TABLE Productos (
+    ID INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    fecha_creacion DATE DEFAULT CURRENT_DATE
+);
+```
+---
+
+7. AUTO_INCREMENT: La restricción AUTO_INCREMENT (o su equivalente en otros DBMS) se utiliza para generar automáticamente un valor único para una columna, generalmente utilizada para claves primarias.
+```SQL
+CREATE TABLE Clientes (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    email VARCHAR(100)
+);
+```
+
+---
+
+### ALTER TABLE
+La instrucción ALTER TABLE en SQL se utiliza para modificar la estructura de una tabla existente. Esto incluye agregar, eliminar o modificar columnas, así como añadir o eliminar restricciones.
+- Agregar una columna
+```SQL
+ALTER TABLE nombre_tabla
+ADD nombre_columna tipo_dato [restricciones];
+```
+- Eliminar una columna
+```SQL
+ALTER TABLE nombre_tabla
+DROP COLUMN nombre_columna;
+```
+- Modificar una columna
+```SQL
+ALTER TABLE nombre_tabla
+MODIFY nombre_columna tipo_dato [restricciones];
+```
+- Renombrar una columna
+```SQL
+ALTER TABLE nombre_tabla
+RENAME COLUMN nombre_columna_actual TO nuevo_nombre_columna;
+```
+- Renombrar la tabla
+```SQL
+ALTER TABLE nombre_tabla_actual
+RENAME TO nuevo_nombre_tabla;
+```
+- Añadir una restriccion 
+```SQL
+ALTER TABLE nombre_tabla
+ADD [CONSTRAINT nombre_restriccion] restriccion (nombre_columna);
+```
+- Eliminar una restriccion
+```SQL
+ALTER TABLE nombre_tabla
+DROP CONSTRAINT nombre_restriccion;
+```
+
+---
+
+## Relacion entre tablas
+
+Las relaciones entre tablas se establecen mediante el uso de claves primarias y claves foráneas. Aquí hay una descripción de los diferentes tipos de relaciones entre tablas y cómo se implementan.
+
+Tipos de Relaciones:
+
+- Relación Uno a Uno (1:1)
+- Relación Uno a Muchos (1:N)
+- Relación Muchos a Muchos (N:M)
+
+### Relación Uno a Uno (1:1)
+
+En una relación uno a uno, cada fila en la tabla A se relaciona con una sola fila en la tabla B y viceversa. Estas relaciones no son muy comunes, pero pueden ser útiles para dividir datos en tablas más pequeñas por razones de seguridad, almacenamiento o desempeño.
+
+Ejemplo
+
+Supongamos que tenemos una tabla Personas y queremos almacenar información adicional en una tabla separada DetallesPersonales.
+```SQL
+CREATE TABLE Personas (
+    PersonaID INT PRIMARY KEY,
+    Nombre VARCHAR(50)
+);
+
+CREATE TABLE DetallesPersonales (
+    DetalleID INT PRIMARY KEY,
+    PersonaID INT,
+    FechaNacimiento DATE,
+    FOREIGN KEY (PersonaID) REFERENCES Personas(PersonaID)
+);
+```
+
+---
+
+### Relación Uno a Muchos (1:N)
+
+En una relación uno a muchos, una fila en la tabla A puede relacionarse con múltiples filas en la tabla B, pero una fila en la tabla B se relaciona con una sola fila en la tabla A. Esta es la relación más común en las bases de datos relacionales.
+
+- Ejemplo: Supongamos que tenemos una tabla Departamentos y una tabla Empleados. Un departamento puede tener muchos empleados, pero un empleado pertenece a un solo departamento.
+```SQL
+CREATE TABLE Departamentos (
+    DepartamentoID INT PRIMARY KEY,
+    NombreDepartamento VARCHAR(50)
+);
+
+CREATE TABLE Empleados (
+    EmpleadoID INT PRIMARY KEY,
+    NombreEmpleado VARCHAR(50),
+    DepartamentoID INT,
+    FOREIGN KEY (DepartamentoID) REFERENCES Departamentos(DepartamentoID)
+);
+```
+
+---
+
+### Relación Muchos a Muchos (N:M)
+En una relación muchos a muchos, múltiples filas en la tabla A pueden relacionarse con múltiples filas en la tabla B. Para implementar este tipo de relación, se utiliza una tabla intermedia (también llamada tabla de asociación o tabla de unión) que contiene las claves foráneas de ambas tablas.
+
+- Ejemplo: Supongamos que tenemos una tabla Estudiantes y una tabla Cursos. Un estudiante puede inscribirse en muchos cursos y un curso puede tener muchos estudiantes. Crearemos una tabla intermedia EstudiantesCursos para gestionar esta relación.
+
+```SQL
+CREATE TABLE Estudiantes (
+    EstudianteID INT PRIMARY KEY,
+    NombreEstudiante VARCHAR(50)
+);
+
+CREATE TABLE Cursos (
+    CursoID INT PRIMARY KEY,
+    NombreCurso VARCHAR(50)
+);
+
+CREATE TABLE EstudiantesCursos (
+    EstudianteID INT,
+    CursoID INT,
+    PRIMARY KEY (EstudianteID, CursoID),
+    FOREIGN KEY (EstudianteID) REFERENCES Estudiantes(EstudianteID),
+    FOREIGN KEY (CursoID) REFERENCES Cursos(CursoID)
+);
+```
+
+---
+
+### Auto Referencia
+Una autorreferencia en bases de datos ocurre cuando una tabla contiene una clave foránea que hace referencia a su propia clave primaria. Este tipo de relación es útil para modelar estructuras jerárquicas o recursivas, como una jerarquía de empleados y supervisores, categorías y subcategorías, o comentarios y respuestas en un foro.
+
+- Ejemplo de Uso: Jerarquía de Empleados
+
+Supongamos que tenemos una tabla Empleados donde cada empleado puede tener un supervisor que también es un empleado. La tabla necesita referenciarse a sí misma para modelar esta jerarquía.
+```SQL
+CREATE TABLE Empleados (
+    EmpleadoID INT PRIMARY KEY,
+    NombreEmpleado VARCHAR(50) NOT NULL,
+    SupervisorID INT,
+    FOREIGN KEY (SupervisorID) REFERENCES Empleados(EmpleadoID)
+);
+```
+
+---
+
+## Almacenamiento de Datos Relacionados
+
