@@ -711,13 +711,13 @@ ON Empleados (NombreEmpleado, ApellidoEmpleado);
 
 ---
 
-- Ventajas de Usar Índices
+##### Ventajas de Usar Índices
 
 * Rápida Recuperación de Datos: Los índices aceleran la recuperación de datos, especialmente en tablas grandes.
 * Consultas Más Eficientes: Mejoran el rendimiento de las consultas SELECT que filtran o buscan datos.
 * Integridad de Datos: Índices únicos garantizan la unicidad de los valores en las columnas indexadas.
 
-- Desventajas de Usar Índices
+##### Desventajas de Usar Índices
 
 * Espacio de Almacenamiento: Los índices ocupan espacio adicional en disco.
 * Rendimiento de Escritura: Insertar, actualizar o eliminar datos puede ser más lento debido a la necesidad de actualizar los índices.
@@ -746,6 +746,9 @@ BEGIN
     VALUES ('INSERT', NOW(), NEW.EmpleadoID);
 END;
 ```
+
+---
+
 ### SIGNAL SQLSTATE "Numero de la excepcion"
 Se utiliza en SQL para generar una excepción o error personalizado dentro de un bloque de código de un trigger, procedimiento almacenado, o función.
 ```SQL
